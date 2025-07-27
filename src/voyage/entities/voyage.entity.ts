@@ -12,8 +12,8 @@ import {
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { UserEntity } from '../../auth/entities/user.entity';
 import { TransportEntity } from '../../transport/entities/transport.entity';
-import { LogementEntity } from './logement.entity';
-import { ActiviteEntity } from './activite.entity';
+import { LogementEntity } from '../../logement/entities/logement.entity';
+import { ActiviteEntity } from '../../activite/entities/activite.entity';
 
 @Entity('voyages')
 export class VoyageEntity {

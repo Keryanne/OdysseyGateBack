@@ -7,7 +7,7 @@ export class ActiviteEntity {
   @ApiProperty({ example: 1, description: "Identifiant unique de l'activité" })
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({
     example: 'Visite guidée',
     description: "Description de l'activité",

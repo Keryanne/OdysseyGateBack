@@ -7,7 +7,7 @@ export class LogementEntity {
   @ApiProperty({ example: 1, description: 'Identifiant unique du logement' })
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({ example: 'Hôtel XYZ', description: 'Nom du logement' })
   nom: string;
 

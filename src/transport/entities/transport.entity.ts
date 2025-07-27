@@ -13,37 +13,37 @@ export class TransportEntity {
   @ApiProperty({ example: 1, description: 'Identifiant unique du transport' })
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({
     example: 'Avion',
     description: 'Type de transport (Avion, Train, etc.)',
   })
   type: string;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({ example: 'AF1234', description: 'Numéro de vol/train, etc.' })
   numero: string;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({ example: 'Air France', description: 'Compagnie de transport' })
   compagnie: string;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({ example: 'Paris', description: 'Ville de départ' })
   depart: string;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({ example: 'New York', description: "Ville d'arrivée" })
   arrivee: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   @ApiProperty({
     example: '2025-05-22T12:00:00Z',
     description: 'Date et heure de départ',
   })
   dateDepart: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   @ApiProperty({
     example: '2025-05-22T20:00:00Z',
     description: "Date et heure d'arrivée",
