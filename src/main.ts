@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -26,6 +27,14 @@ async function bootstrap() {
   app.getHttpAdapter().get('/', (req, res) => {
     res.redirect('/api-docs');
   });
+
+  const corsOptions: CorsOptions = {
+    origin: ['http://localhost:4200', 'https://odysseygateback.onrender.com', 'https://odyssey-gate.web.app'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  };
+
+  app.enableCors(corsOptions);
 
   await app.listen(process.env.PORT || 3000);
 }
