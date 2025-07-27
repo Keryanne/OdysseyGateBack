@@ -39,7 +39,7 @@ export class VoyageEntity {
   })
   dateArrivee: Date;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({ example: 2, description: 'Nombre de voyageurs' })
   nombreVoyageurs: number;
 
