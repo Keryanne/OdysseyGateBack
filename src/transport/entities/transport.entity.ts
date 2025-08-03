@@ -4,8 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { VoyageEntity } from 'src/voyage/entities/voyage.entity';
 
 @Entity('transports')
 export class TransportEntity {
@@ -49,6 +51,10 @@ export class TransportEntity {
     description: "Date et heure d'arrivée",
   })
   dateArrivee: Date;
+
+  @ManyToOne(() => VoyageEntity, (voyage) => voyage.transports, { onDelete: 'CASCADE' })
+  voyage: VoyageEntity;
+
 
   @CreateDateColumn()
   createdAt: Date;

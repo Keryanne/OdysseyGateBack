@@ -48,21 +48,21 @@ export class VoyageService {
       const transport = new TransportEntity();
       transport.type = dto.transport.type;
       transport.compagnie = dto.transport.compagnie;
-      voyage.transport = transport;
+      voyage.transports = transport;
     }
 
     if (dto.logement) {
       const logement = new LogementEntity();
       logement.nom = dto.logement.nom;
       logement.adresse = dto.logement.adresse;
-      voyage.logement = logement;
+      voyage.logements = logement;
     }
 
     if (dto.activite) {
       const activite = new ActiviteEntity();
       activite.description = dto.activite.description;
       activite.lieu = dto.activite.lieu;
-      voyage.activite = activite;
+      voyage.activites = activite;
     }
 
     return this.voyageRepository.save(voyage);

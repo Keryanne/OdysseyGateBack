@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { VoyageEntity } from 'src/voyage/entities/voyage.entity';
 
 @Entity('logements')
 export class LogementEntity {
@@ -18,4 +19,8 @@ export class LogementEntity {
     required: false,
   })
   adresse?: string;
+
+  @ManyToOne(() => VoyageEntity, (voyage) => voyage.transports, { onDelete: 'CASCADE' })
+  voyage: VoyageEntity;
+
 }

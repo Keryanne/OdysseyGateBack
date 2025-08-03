@@ -37,4 +37,12 @@ export class TransportService {
     await this.findOne(id);
     await this.transportRepository.delete(id);
   }
+
+  async findByVoyageId(voyageId: number): Promise<TransportEntity[]> {
+  return this.transportRepository.find({
+    where: { voyage: { id: voyageId } },
+    relations: ['voyage'],
+  });
+}
+
 }

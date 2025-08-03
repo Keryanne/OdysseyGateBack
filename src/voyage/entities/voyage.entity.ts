@@ -8,6 +8,7 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { UserEntity } from '../../auth/entities/user.entity';
@@ -64,7 +65,7 @@ export class VoyageEntity {
   })
   user: UserEntity;
 
-  @OneToOne(() => TransportEntity, {
+  @OneToMany(() => TransportEntity, (transport) => transport.voyage, {
     cascade: true,
     eager: true,
     nullable: true,
@@ -74,9 +75,9 @@ export class VoyageEntity {
     type: () => TransportEntity,
     description: 'Transport associé au voyage (optionnel)',
   })
-  transport?: TransportEntity;
+  transports?: TransportEntity;
 
-  @OneToOne(() => LogementEntity, {
+  @OneToMany(() => LogementEntity,  (logement) => logement.voyage,{
     cascade: true,
     eager: true,
     nullable: true,
@@ -86,9 +87,9 @@ export class VoyageEntity {
     type: () => LogementEntity,
     description: 'Logement associé au voyage (optionnel)',
   })
-  logement?: LogementEntity;
+  logements?: LogementEntity;
 
-  @OneToOne(() => ActiviteEntity, {
+  @OneToMany(() => ActiviteEntity,  (activite) => activite.voyage,{
     cascade: true,
     eager: true,
     nullable: true,
@@ -98,7 +99,7 @@ export class VoyageEntity {
     type: () => ActiviteEntity,
     description: 'Activité associée au voyage (optionnel)',
   })
-  activite?: ActiviteEntity;
+  activites?: ActiviteEntity;
 
   @CreateDateColumn()
   createdAt: Date;

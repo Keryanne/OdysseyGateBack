@@ -53,4 +53,12 @@ export class TransportController {
   remove(@Param('id') id: number) {
     return this.transportService.remove(+id);
   }
+
+  @Get('by-voyage/:voyageId')
+  @ApiOperation({ summary: 'Récupérer les transports d’un voyage' })
+  @ApiResponse({ status: 200, type: [TransportEntity] })
+  findByVoyage(@Param('voyageId') voyageId: number) {
+    return this.transportService.findByVoyageId(+voyageId);
+  }
+
 }

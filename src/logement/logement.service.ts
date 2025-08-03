@@ -37,4 +37,11 @@ export class LogementService {
     await this.findOne(id);
     await this.logementRepository.delete(id);
   }
+
+  async findByVoyageId(voyageId: number): Promise<LogementEntity[]> {
+    return this.logementRepository.find({
+      where: { voyage: { id: voyageId } },
+      relations: ['voyage'],
+    });
+  }
 }

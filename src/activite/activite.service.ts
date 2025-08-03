@@ -37,4 +37,11 @@ export class ActiviteService {
     await this.findOne(id);
     await this.activiteRepository.delete(id);
   }
+
+  async findByVoyageId(voyageId: number): Promise<ActiviteEntity[]> {
+    return this.activiteRepository.find({
+      where: { voyage: { id: voyageId } },
+      relations: ['voyage'],
+    });
+  }
 }

@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { VoyageEntity } from 'src/voyage/entities/voyage.entity';
 
 @Entity('activites')
 export class ActiviteEntity {
@@ -21,4 +22,7 @@ export class ActiviteEntity {
     required: false,
   })
   lieu?: string;
+
+  @ManyToOne(() => VoyageEntity, (voyage) => voyage.transports, { onDelete: 'CASCADE' })
+  voyage: VoyageEntity;
 }
