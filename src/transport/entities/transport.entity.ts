@@ -7,7 +7,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { VoyageEntity } from 'src/voyage/entities/voyage.entity';
+import { VoyageEntity } from '../../voyage/entities/voyage.entity';
 
 @Entity('transports')
 export class TransportEntity {
