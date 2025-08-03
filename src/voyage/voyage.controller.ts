@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Req, UseGuards, Get } from '@nestjs/common';
+import { Controller, Post, Body, Req, UseGuards, Get, ParseIntPipe, Param } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -54,4 +54,12 @@ export class VoyageController {
     const userId = req.user.id;
     return this.voyageService.getVoyagesByUser(userId);
   }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Récupérer les détails d’un voyage par ID' })
+  @ApiResponse({ status: 200, type: VoyageEntity })
+  getVoyageById(@Param('id', ParseIntPipe) id: number) {
+    return this.voyageService.getVoyageById(id);
+  }
+
 }

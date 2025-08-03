@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { VoyageEntity } from './entities/voyage.entity';
@@ -71,4 +71,18 @@ export class VoyageService {
   async getVoyagesByUser(userId: number): Promise<VoyageEntity[]> {
     return this.voyageRepository.find({ where: { user: { id: userId } } });
   }
+
+  async getVoyageById(id: number): Promise<VoyageEntity> {
+  const voyage = await this.voyageRepository.findOne({
+    where: { id },
+    relations: ['user', 'transports', 'logements', 'activites'],
+  });
+
+  if (!voyage) {
+    throw new NotFoundException(`Voyage #${id} non trouvé`);
+  }
+
+  return voyage;
+}
+
 }
