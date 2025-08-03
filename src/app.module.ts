@@ -8,6 +8,7 @@ import { SkyscannerService } from './skyscanner/skyscanner.service';
 import { HttpModule } from '@nestjs/axios';
 import { TransportModule } from './transport/transport.module';
 import { SkyscannerModule } from './skyscanner/skyscanner.module';
+import { PixabayModule } from './pixabay/pixabay.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SkyscannerModule } from './skyscanner/skyscanner.module';
     AuthModule,
     VoyageModule,
     TransportModule,
+    PixabayModule
   ],
 })
 export class AppModule {}
