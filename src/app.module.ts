@@ -9,6 +9,8 @@ import { HttpModule } from '@nestjs/axios';
 import { TransportModule } from './transport/transport.module';
 import { SkyscannerModule } from './skyscanner/skyscanner.module';
 import { PixabayModule } from './pixabay/pixabay.module';
+import { LogementModule } from './logement/logement.module';
+import { ActiviteModule } from './activite/activite.module';
 
 @Module({
   imports: [
@@ -24,7 +26,9 @@ import { PixabayModule } from './pixabay/pixabay.module';
     AuthModule,
     VoyageModule,
     TransportModule,
-    PixabayModule
+    PixabayModule,
+    LogementModule,
+    ActiviteModule
   ],
 })
 export class AppModule {}
