@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Req, UseGuards, Get, ParseIntPipe, Param } from '@nestjs/common';
+import { Controller, Post, Body, Req, UseGuards, Get, ParseIntPipe, Param, Delete } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -62,4 +62,11 @@ export class VoyageController {
     return this.voyageService.getVoyageById(id);
   }
 
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Supprimer un voyage par ID' })
+  @ApiResponse({ status: 200, description: 'Voyage supprimé avec succès.' })
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    await this.voyageService.removeVoyage(id);
+  }
 }

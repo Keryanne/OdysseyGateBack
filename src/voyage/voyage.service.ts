@@ -10,6 +10,9 @@ import { ActiviteEntity } from '../activite/entities/activite.entity';
 
 @Injectable()
 export class VoyageService {
+  remove(id: number) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(VoyageEntity)
     private readonly voyageRepository: Repository<VoyageEntity>,
@@ -79,6 +82,10 @@ export class VoyageService {
   }
 
     return this.voyageRepository.save(voyage);
+  }
+
+  async removeVoyage(id: number): Promise<void> {
+    await this.voyageRepository.delete(id);
   }
 
   async getVoyagesByUser(userId: number): Promise<VoyageEntity[]> {
