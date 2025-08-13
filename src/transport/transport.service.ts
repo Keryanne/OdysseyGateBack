@@ -13,7 +13,16 @@ export class TransportService {
   ) {}
 
   async create(dto: CreateTransportDto): Promise<TransportEntity> {
-    const transport = this.transportRepository.create(dto);
+    // Récupérer le voyage associé
+    const voyageRepo = this.transportRepository.manager.getRepository('VoyageEntity');
+    const voyage = await voyageRepo.findOne({ where: { id: dto.voyageId } });
+    if (!voyage) {
+      throw new NotFoundException(`Voyage #${dto.voyageId} non trouvé`);
+    }
+    const transport = this.transportRepository.create({
+      ...dto,
+      voyage,
+    });
     return this.transportRepository.save(transport);
   }
 

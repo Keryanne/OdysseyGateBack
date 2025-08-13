@@ -13,7 +13,16 @@ export class LogementService {
   ) {}
 
   async create(dto: CreateLogementDto): Promise<LogementEntity> {
-    const logement = this.logementRepository.create(dto);
+    // Récupérer le voyage associé
+    const voyageRepo = this.logementRepository.manager.getRepository('VoyageEntity');
+    const voyage = await voyageRepo.findOne({ where: { id: dto.voyageId } });
+    if (!voyage) {
+      throw new NotFoundException(`Voyage #${dto.voyageId} non trouvé`);
+    }
+    const logement = this.logementRepository.create({
+      ...dto,
+      voyage,
+    });
     return this.logementRepository.save(logement);
   }
 

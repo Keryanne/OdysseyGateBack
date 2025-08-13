@@ -13,7 +13,16 @@ export class ActiviteService {
   ) {}
 
   async create(dto: CreateActiviteDto): Promise<ActiviteEntity> {
-    const activite = this.activiteRepository.create(dto);
+    // Récupérer le voyage associé
+    const voyageRepo = this.activiteRepository.manager.getRepository('VoyageEntity');
+    const voyage = await voyageRepo.findOne({ where: { id: dto.voyageId } });
+    if (!voyage) {
+      throw new NotFoundException(`Voyage #${dto.voyageId} non trouvé`);
+    }
+    const activite = this.activiteRepository.create({
+      ...dto,
+      voyage,
+    });
     return this.activiteRepository.save(activite);
   }
 

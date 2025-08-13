@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString, IsInt } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateActiviteDto {
@@ -10,4 +10,7 @@ export class CreateActiviteDto {
   @ApiProperty({ example: 'Louvre, Paris' })
   @IsString()
   lieu: string;
+  @ApiProperty({ example: 1, description: "Id du voyage auquel rattacher l'activité" })
+  @IsInt()
+  voyageId: number;
 }
