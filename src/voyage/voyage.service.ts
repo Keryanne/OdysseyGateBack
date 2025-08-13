@@ -44,26 +44,39 @@ export class VoyageService {
       user,
     });
 
-    if (dto.transport) {
+     // --- Transports ---
+  if (dto.transports?.length > 0) {
+    voyage.transports = dto.transports.map((t) => {
       const transport = new TransportEntity();
-      transport.type = dto.transport.type;
-      transport.compagnie = dto.transport.compagnie;
-      voyage.transports = transport;
-    }
+      transport.type = t.type;
+      transport.compagnie = t.compagnie;
+      transport.dateDepart = t.dateDepart ? new Date(t.dateDepart) : undefined;
+      transport.dateArrivee = t.dateArrivee ? new Date(t.dateArrivee) : undefined;
+      transport.depart = t.depart;
+      transport.arrivee = t.arrivee;
+      return transport;
+    });
+  }
 
-    if (dto.logement) {
+  // --- Logements ---
+  if (dto.logements?.length > 0) {
+    voyage.logements = dto.logements.map((l) => {
       const logement = new LogementEntity();
-      logement.nom = dto.logement.nom;
-      logement.adresse = dto.logement.adresse;
-      voyage.logements = logement;
-    }
+      logement.nom = l.nom;
+      logement.adresse = l.adresse;
+      return logement;
+    });
+  }
 
-    if (dto.activite) {
+  // --- Activités ---
+  if (dto.activites?.length > 0) {
+    voyage.activites = dto.activites.map((a) => {
       const activite = new ActiviteEntity();
-      activite.description = dto.activite.description;
-      activite.lieu = dto.activite.lieu;
-      voyage.activites = activite;
-    }
+      activite.description = a.description;
+      activite.lieu = a.lieu;
+      return activite;
+    });
+  }
 
     return this.voyageRepository.save(voyage);
   }

@@ -75,7 +75,7 @@ export class VoyageEntity {
     type: () => TransportEntity,
     description: 'Transport associé au voyage (optionnel)',
   })
-  transports?: TransportEntity;
+  transports?: TransportEntity[];
 
   @OneToMany(() => LogementEntity,  (logement) => logement.voyage,{
     cascade: true,
@@ -87,7 +87,7 @@ export class VoyageEntity {
     type: () => LogementEntity,
     description: 'Logement associé au voyage (optionnel)',
   })
-  logements?: LogementEntity;
+  logements?: LogementEntity[];
 
   @OneToMany(() => ActiviteEntity,  (activite) => activite.voyage,{
     cascade: true,
@@ -99,7 +99,7 @@ export class VoyageEntity {
     type: () => ActiviteEntity,
     description: 'Activité associée au voyage (optionnel)',
   })
-  activites?: ActiviteEntity;
+  activites?: ActiviteEntity[];
 
   @CreateDateColumn()
   createdAt: Date;

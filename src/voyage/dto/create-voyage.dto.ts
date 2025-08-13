@@ -1,5 +1,9 @@
-import { IsString, IsDateString, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsDateString, IsNumber, IsOptional, ValidateNested } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { CreateTransportDto } from 'src/transport/dto/create-transport.dto';
+import { Type } from 'class-transformer';
+import { CreateLogementDto } from 'src/logement/dto/create-logement.dto';
+import { CreateActiviteDto } from 'src/activite/dto/create-activite.dto';
 
 export class CreateVoyageDto {
   @ApiProperty({ example: 'Paris', description: 'Destination du voyage' })
@@ -36,24 +40,30 @@ export class CreateVoyageDto {
   @IsString()
   imageUrl?: string;
 
-  @ApiPropertyOptional({ description: 'Transport associé au voyage' })
+ @ApiPropertyOptional({
+    type: [CreateTransportDto],
+    description: 'Liste des transports associés au voyage',
+  })
   @IsOptional()
-  transport?: {
-    type: string;
-    compagnie?: string;
-  };
+  @ValidateNested({ each: true })
+  @Type(() => CreateTransportDto)
+  transports?: CreateTransportDto[];
 
-  @ApiPropertyOptional({ description: 'Logement associé au voyage' })
+  @ApiPropertyOptional({
+    type: [CreateLogementDto],
+    description: 'Liste des logements associés au voyage',
+  })
   @IsOptional()
-  logement?: {
-    nom: string;
-    adresse: string;
-  };
+  @ValidateNested({ each: true })
+  @Type(() => CreateLogementDto)
+  logements?: CreateLogementDto[];
 
-  @ApiPropertyOptional({ description: 'Activité associée au voyage' })
+  @ApiPropertyOptional({
+    type: [CreateActiviteDto],
+    description: 'Liste des activités associées au voyage',
+  })
   @IsOptional()
-  activite?: {
-    description: string;
-    lieu: string;
-  };
+  @ValidateNested({ each: true })
+  @Type(() => CreateActiviteDto)
+  activites?: CreateActiviteDto[];
 }
