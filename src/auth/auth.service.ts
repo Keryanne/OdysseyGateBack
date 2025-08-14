@@ -2,6 +2,7 @@ import {
   Injectable,
   ConflictException,
   UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -57,5 +58,24 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email };
     const access_token = await this.jwtService.signAsync(payload);
     return { access_token };
+  }
+
+  async getUser(identifier: number | string): Promise<UserEntity> {
+    let user: UserEntity | null = null;
+    if (typeof identifier === 'number') {
+      user = await this.userRepository.findOne({ where: { id: identifier } });
+    } else if (typeof identifier === 'string') {
+      // On suppose que c'est un token JWT
+      try {
+        const payload = await this.jwtService.verifyAsync(identifier);
+        user = await this.userRepository.findOne({ where: { id: payload.sub } });
+      } catch {
+        throw new UnauthorizedException('Token invalide');
+      }
+    }
+    if (!user) {
+      throw new NotFoundException('Utilisateur non trouvé');
+    }
+    return user;
   }
 }

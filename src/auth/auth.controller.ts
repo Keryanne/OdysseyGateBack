@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, Get, Param, Headers } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
@@ -39,5 +39,19 @@ export class AuthController {
   @ApiResponse({ status: 401, description: 'Identifiants invalides.' })
   async login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
+  }
+  @Get('user/:id')
+  @ApiOperation({ summary: "Récupérer les infos d'un utilisateur par id" })
+  @ApiResponse({ status: 200, type: UserEntity })
+  async getUserById(@Param('id') id: number): Promise<UserEntity> {
+    return this.authService.getUser(id);
+  }
+
+  @Get('me')
+  @ApiOperation({ summary: "Récupérer les infos de l'utilisateur via le token JWT" })
+  @ApiResponse({ status: 200, type: UserEntity })
+  async getMe(@Headers('authorization') authHeader: string): Promise<UserEntity> {
+    const token = authHeader?.replace('Bearer ', '');
+    return this.authService.getUser(token);
   }
 }
