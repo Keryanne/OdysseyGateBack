@@ -52,4 +52,11 @@ export class LogementController {
   remove(@Param('id') id: number) {
     return this.logementService.remove(+id);
   }
+
+  @Get('by-voyage/:voyageId')
+  @ApiOperation({ summary: 'Récupérer les logements d’un voyage par son id' })
+  @ApiResponse({ status: 200, type: [LogementEntity] })
+  findByVoyage(@Param('voyageId') voyageId: number) {
+    return this.logementService.findByVoyageId(+voyageId);
+  }
 }

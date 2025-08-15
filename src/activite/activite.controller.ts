@@ -52,4 +52,11 @@ export class ActiviteController {
   remove(@Param('id') id: number) {
     return this.activiteService.remove(+id);
   }
+
+  @Get('by-voyage/:voyageId')
+  @ApiOperation({ summary: 'Récupérer les activités d’un voyage par son id' })
+  @ApiResponse({ status: 200, type: [ActiviteEntity] })
+  findByVoyage(@Param('voyageId') voyageId: number) {
+    return this.activiteService.findByVoyageId(+voyageId);
+  }
 }
