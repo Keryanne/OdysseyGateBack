@@ -85,7 +85,14 @@ export class VoyageService {
   }
 
   async removeVoyage(id: number): Promise<void> {
-    await this.voyageRepository.delete(id);
+    try {
+      const result = await this.voyageRepository.delete(id);
+      if (!result.affected) {
+        throw new InternalServerErrorException('Voyage not deleted');
+      }
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   async getVoyagesByUser(userId: number): Promise<VoyageEntity[]> {

@@ -13,8 +13,8 @@
     "start:prod": "node dist/main.js",
     "start:debug": "nest start --debug --watch",
     "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\" --fix --no-ignore",
-    "test": "jest --config ./jest.config.js",
-    "test:watch": "jest --watch",
+    "test": "--config ./jest.config.js",
+    "test:watch": "--watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "cross-env NODE_ENV=test ENV_FILE=.env.test jest --config ./test/jest-e2e.json",
@@ -72,22 +72,5 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.2"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   }
 }
